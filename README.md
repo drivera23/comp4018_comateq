@@ -20,7 +20,7 @@ Especificaciones:
 To-Do List:
 - [ ] Create To-Do List XD
 - [ ] E/R Design
-- [ ] Traduction Stage
+- [ ] Translation Stage
 - [ ] Decomposition / Normalization (LaTeX file)
 - [ ] Create DB
 - [ ] Visualization in HTML/JS 
