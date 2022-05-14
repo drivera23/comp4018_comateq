@@ -18,9 +18,9 @@ Especificaciones:
 - La calificación será bajo rúbrica que tendrá en cuenta, diseño E/R, traducción, descomposición (3NF, BCNF, etc.) (En proceso)
 
 To-Do List:
-- [ ] Create To-Do List XD
-- [ ] E/R Design
+- [x] Create To-Do List XD
+- [x] E/R Design
 - [ ] Translation Stage
 - [ ] Decomposition / Normalization (LaTeX file)
-- [ ] Create DB
-- [ ] Visualization in HTML/JS 
+- [x] Create DB
+- [ ] *(Possibly not done due to server)* Visualization in HTML/JS 
