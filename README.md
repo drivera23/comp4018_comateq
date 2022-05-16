@@ -25,6 +25,6 @@ To-Do List:
 - [x] Create To-Do List XD
 - [x] E/R Design
 - [x] Translation to Relational
-- [ ] Decomposition / Normalization (LaTeX file)
+- [x] Decomposition / Normalization (LaTeX file)
 - [x] Create DB
-- [ ] *(Possibly not done due to server)* Visualization in HTML/JS 
+- [x] *(Possibly not done due to server)* Visualization in HTML/JS 
