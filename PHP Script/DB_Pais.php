@@ -26,12 +26,14 @@ y los dos botones que guian el flujo del programa -->
 
     <h3 style="text-align: center;"> Inserta data! </h3>
 
+    <!-- Aqui se crea el FORM para recoger informacion a insertar -->
     <form method="post" style="margin: auto; width: 220px;">
     Nombre Pais: <br><input type="text" name="name"><br>
     <br><input type="submit" name = "Insert1">
     </form>
 
     <div>
+        <!-- Aqui PHP se encarga de entrar al servidor con los credenciales y accede los campos dados -->
     <?php
         if (isset($_POST["Insert1"])) {
             $par = $_POST["name"];
@@ -39,7 +41,8 @@ y los dos botones que guian el flujo del programa -->
             $username = "*";
             $password = "*";
             $dbname = "*";
-                
+               
+            // Se establece la conexion
             $conn = new mysqli($servername, $username, $password, $dbname);
             
             if ($conn->connect_error) {
@@ -47,10 +50,12 @@ y los dos botones que guian el flujo del programa -->
                     . $conn->connect_error);
             }
 
+            // Se realiza las subconsultas con su ID para no tener duplicidades.
             $sub = "SELECT MAX(idPais) AS ID FROM Pais";
             $res = $conn->query($sub);
             $max = $res->fetch_assoc();
             $id = ((int)$max["ID"]) + 1;
+            // se inserta
             $sql = "INSERT INTO Pais (idPais,Nombre) VALUES ('$id','$par')";
 
             if ($conn->query($sql) === TRUE) {
@@ -70,6 +75,7 @@ y los dos botones que guian el flujo del programa -->
 <div style= "text-align: center;"> 
     <h3 style="text-align: center;"> Modifica data! </h3>
 
+    <!-- Aqui se crea el FORM para recoger informacion a modificar -->
     <form method="post" style="margin: auto; width: 220px;">
     Nombre Pais: <br><input type="text" name="name"><br>
     Nombre Nuevo para Pais: <br><input type="text" name="nameNew"><br>
@@ -77,6 +83,7 @@ y los dos botones que guian el flujo del programa -->
     </form>
 
     <div>
+        <!-- Aqui PHP se encarga de entrar al servidor con los credenciales y accede los campos dados -->
     <?php
         if (isset($_POST["Insert2"])) {
             $par = $_POST["name"];
@@ -86,13 +93,16 @@ y los dos botones que guian el flujo del programa -->
             $password = "*";
             $dbname = "*";
                 
+            // Se establece la conexion
             $conn = new mysqli($servername, $username, $password, $dbname);
+            
             
             if ($conn->connect_error) {
                 die("Connection failed: " 
                     . $conn->connect_error);
             }
 
+            // se modifica
             $sql = "UPDATE Pais SET Nombre = '$newPar' WHERE Nombre = '$par'";
 
             if ($conn->query($sql) === TRUE) {
@@ -111,11 +121,13 @@ y los dos botones que guian el flujo del programa -->
 
     <h3 style="text-align: center;"> Observe la data! </h3>
 
+    <!-- Aqui se crea el FORM para despliegar -->
     <form method="post">
     <input type="submit" name="Show" value ="Demuestra paises">
     </form>
 
     <div>
+        <!-- Aqui PHP se encarga de entrar al servidor con los credenciales y accede los campos dados -->
         <?php
             if (isset($_POST["Show"])) {
 
@@ -124,7 +136,7 @@ y los dos botones que guian el flujo del programa -->
                 $password = "*";
                 $dbname = "*";
             
-                
+                // Se establece la conexion
                 $conn = new mysqli($servername, $username, $password, $dbname);
                 
                 if ($conn->connect_error) {
@@ -134,6 +146,7 @@ y los dos botones que guian el flujo del programa -->
                 $sql = "SELECT Nombre FROM Pais";
                 $result = $conn->query($sql);
                 
+                // se despliega
                 if ($result->num_rows > 0) {
                     echo "<h4> Los Paises son: </h4>";
                     // output data of each row
