@@ -1,0 +1,5 @@
+PHP references:
+
+INSERT INTO MySQL: https://www.tutsmake.com/php-code-insert-data-into-mysql-database-from-form/
+MODIFY DATA IN MySQL: https://www.w3schools.com/php/php_mysql_update.asp
+DISPLAY DATA: https://codingstatus.com/display-data-in-html-table-using-php-mysql/, https://www.siteground.com/tutorials/php-mysql/display-table-data/
