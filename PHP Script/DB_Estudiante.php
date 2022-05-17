@@ -26,6 +26,7 @@ y los dos botones que guian el flujo del programa -->
 
     <h3 style="text-align: center;"> Inserta data! </h3>
 
+    <!-- Aqui se crea el FORM para recoger informacion a insertar -->
     <form method="post" style="margin: auto; width: 220px;">
     Nombre: <br><input type="text" name="nameP"><br>
     Apellido Paterno: <input type="text" name="nameAP"><br>
@@ -39,6 +40,7 @@ y los dos botones que guian el flujo del programa -->
     </form>
 
     <div>
+        <!-- Aqui PHP se encarga de entrar al servidor con los credenciales y accede los campos dados -->
     <?php
         if (isset($_POST["Insert1"])) {
             $esName = $_POST["nameP"];
@@ -56,6 +58,7 @@ y los dos botones que guian el flujo del programa -->
             $password = "*";
             $dbname = "*";
                 
+            // Se establece la conexion
             $conn = new mysqli($servername, $username, $password, $dbname);
             
             if ($conn->connect_error) {
@@ -63,10 +66,12 @@ y los dos botones que guian el flujo del programa -->
                     . $conn->connect_error);
             }
 
+            // Se realiza las subconsultas con su ID para no tener duplicidades.
             $sub = "SELECT MAX(idEstudiante) AS ID FROM Estudiante";
             $res = $conn->query($sub);
             $max = $res->fetch_assoc();
             $id = ((int)$max["ID"]) + 1;
+            // se inserta
             $sql = "INSERT INTO Estudiante (idEstudiante,NombreP,ApellidoP,ApellidoM,DOB,Escuela,Grado,Género,Edad) VALUES ('$id','$esName','$esAP','$esAM','$esDOB','$esSchool','$esGrado','$esGen','$esAge')";
 
             if ($conn->query($sql) === TRUE) {
@@ -84,6 +89,7 @@ y los dos botones que guian el flujo del programa -->
 <div style= "text-align: center;"> 
     <h3 style="text-align: center;"> Modifica data! </h3>
 
+    <!-- Aqui se crea el FORM para recoger informacion a modificar -->
     <form method="post" style="margin: auto; width: 220px;">
     Nombre del Estudiante: <br><input type="text" name="nameP"><br>
     Apellido Paterno del Estudiante: <input type="text" name="nameAP"><br>
@@ -95,6 +101,7 @@ y los dos botones que guian el flujo del programa -->
     </form>
 
     <div>
+        <!-- Aqui PHP se encarga de entrar al servidor con los credenciales y accede los campos dados -->
     <?php
         if (isset($_POST["Insert2"])) {
             $esName = $_POST["nameP"];
@@ -109,7 +116,7 @@ y los dos botones que guian el flujo del programa -->
             $username = "*";
             $password = "*";
             $dbname = "*";
-
+            // Se establece la conexion
             $conn = new mysqli($servername, $username, $password, $dbname);
             
             if ($conn->connect_error) {
@@ -117,6 +124,7 @@ y los dos botones que guian el flujo del programa -->
                     . $conn->connect_error);
             }
 
+            // se modifica
             $sql = "UPDATE Estudiante 
             SET Escuela = '$esSchool', Grado = '$esGrado'
             WHERE NombreP = '$esName' AND ApellidoP = '$esAP' AND ApellidoM = '$esAM' AND DOB='$esDOB'";
@@ -137,10 +145,11 @@ y los dos botones que guian el flujo del programa -->
 
     <h3 style="text-align: center;"> Observe la data! </h3>
 
-    <form method="post">
+    <!-- Aqui se crea el FORM para despliegar -->
     <input type="submit" name="Show" value ="Demuestra Estudiantes">
     </form>
 
+    <!-- Aqui PHP se encarga de entrar al servidor con los credenciales y accede los campos dados -->
     <div>
         <?php
             if (isset($_POST["Show"])) {
@@ -150,6 +159,7 @@ y los dos botones que guian el flujo del programa -->
                 $password = "*";
                 $dbname = "*";
 
+                // Se establece la conexion
                 $conn = new mysqli($servername, $username, $password, $dbname);
                 
                 if ($conn->connect_error) {
@@ -159,6 +169,7 @@ y los dos botones que guian el flujo del programa -->
                 $sql = "SELECT * FROM Estudiante";
                 $result = $conn->query($sql);
                 
+                // se despliege
                 if ($result->num_rows > 0) {
                     echo "<h4> Los Estudiantes son: </h4>";
                     
