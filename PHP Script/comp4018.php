@@ -25,6 +25,8 @@ y los dos botones que guian el flujo del programa -->
 <div style= "text-align: center;"> 
 
     <h2 style="margin-bottom 5%;"> Click on the buttons to interact with the other tables! </h2>
+    
+    <!-- Aqui aparece los botones con todas las tablas disponsibles para poder interactuar. -->
 
     <div class="btn-group-vertical" style="margin-top 10%;">
             <a href="DB_Pais.php"><button id="btnSearch" class="btn btn-primary btn-md center-block" Style="width: 120px; margin-bottom: 4%;" OnClick="displayProblems()" >Pais</button> </a>
