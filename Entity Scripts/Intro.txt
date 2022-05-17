@@ -1,1 +1,1 @@
-In this folder, there will be an .sql file with all the entities created!
+In this folder, there will be an .sql file for each of the entities created, and one for the entire database (comateq003.sql).
