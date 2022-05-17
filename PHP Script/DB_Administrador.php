@@ -25,6 +25,8 @@ y los dos botones que guian el flujo del programa -->
 <div style= "text-align: center;"> 
 
     <h3 style="text-align: center;"> Inserta data! </h3>
+    
+    <!-- Aqui se crea el FORM para recoger informacion a insertar -->
 
     <form method="post" style="margin: auto; width: 220px;">
     Nombre: <br><input type="text" name="nameP"><br>
@@ -36,6 +38,7 @@ y los dos botones que guian el flujo del programa -->
     <br><input type="submit" name = "Insert1">
     </form>
 
+    <!-- Aqui PHP se encarga de entrar al servidor con los credenciales y accede los campos dados -->
     <div>
     <?php
         if (isset($_POST["Insert1"])) {
@@ -51,6 +54,8 @@ y los dos botones que guian el flujo del programa -->
             $username = "*";
             $password = "*";
             $dbname = "*";
+            
+           // Se establece la conexion
                
             $conn = new mysqli($servername, $username, $password, $dbname);
            
@@ -59,10 +64,12 @@ y los dos botones que guian el flujo del programa -->
                     . $conn->connect_error);
             }
 
+            // Se realiza las subconsultas con su ID para no tener duplicidades.
             $sub = "SELECT MAX(idAdministrador) AS ID FROM Administrador";
             $res = $conn->query($sub);
             $max = $res->fetch_assoc();
             $id = ((int)$max["ID"]) + 1;
+            // se inserta
             $sql = "INSERT INTO Administrador (idAdministrador,NombreP,ApellidoP,ApellidoM,Email,Posición,Género) VALUES ('$id','$adminName','$adminAP','$adminAM','$adminEmail','$adminPos','$adminGen')";
 
             if ($conn->query($sql) === TRUE) {
@@ -82,6 +89,7 @@ y los dos botones que guian el flujo del programa -->
 <div style= "text-align: center;"> 
     <h3 style="text-align: center;"> Modifica data! </h3>
 
+    <!-- Aqui se crea el FORM para recoger informacion a modificar -->
     <form method="post" style="margin: auto; width: 220px;">
     Nombre: <br><input type="text" name="nameP"><br>
     Nombre Nuevo: <br><input type="text" name="namePnew"><br>
@@ -93,7 +101,9 @@ y los dos botones que guian el flujo del programa -->
     </form>
 
     <div>
+        <!-- Aqui PHP se encarga de entrar al servidor con los credenciales y accede los campos dados -->
     <?php
+        
         if (isset($_POST["Insert2"])) {
             $adminName = $_POST["nameP"];
             $adminNewName = $_POST["namePnew"];
@@ -109,12 +119,15 @@ y los dos botones que guian el flujo del programa -->
             $dbname = "*";
 
             $conn = new mysqli($servername, $username, $password, $dbname);
+            
+            // Se establece la conexion
     
             if ($conn->connect_error) {
                 die("Connection failed: " 
                     . $conn->connect_error);
             }
 
+            // Se realiza la consulta para modificar la data.
             $sql = "UPDATE Administrador 
             SET NombreP = '$adminNewName', Email = '$adminEmailNew', Posición = '$adminPosNew' 
             WHERE NombreP = '$adminName' AND Email = '$adminEmail' AND Posición = '$adminPos' ";
@@ -134,10 +147,14 @@ y los dos botones que guian el flujo del programa -->
 <div style= "text-align: center; margin-top: 2%;"> 
 
     <h3 style="text-align: center;"> Observe la data! </h3>
+    
+    <!-- Aqui se crea el FORM para despliegar informacion -->
 
     <form method="post">
     <input type="submit" name="Show" value ="Demuestra Admins">
     </form>
+    
+    <!-- Aqui PHP se encarga de entrar al servidor con los credenciales y accede los campos dados -->
 
     <div>
         <?php
@@ -148,6 +165,7 @@ y los dos botones que guian el flujo del programa -->
                 $password = "*";
                 $dbname = "*";
             
+                // Se establece la conexion
                 $conn = new mysqli($servername, $username, $password, $dbname);
   
                 if ($conn->connect_error) {
@@ -156,6 +174,8 @@ y los dos botones que guian el flujo del programa -->
                 
                 $sql = "SELECT * FROM Administrador";
                 $result = $conn->query($sql);
+                
+                // se despliega información
                 
                 if ($result->num_rows > 0) {
                     echo "<h4> Los Administradores son: </h4>";
