@@ -26,6 +26,7 @@ y los dos botones que guian el flujo del programa -->
 
     <h3 style="text-align: center;"> Inserta data! </h3>
 
+    <!-- Aqui se crea el FORM para recoger informacion a insertar -->
     <form method="post" style="margin: auto; width: 220px;">
     ID Pais: <br><input type="text" name="idPais"><br>
     Nombre: <br><input type="text" name="name"><br>
@@ -39,6 +40,7 @@ y los dos botones que guian el flujo del programa -->
     </form>
 
     <div>
+        <!-- Aqui PHP se encarga de entrar al servidor con los credenciales y accede los campos dados -->
     <?php
         if (isset($_POST["Insert1"])) {
             $uniName = $_POST["name"];
@@ -56,6 +58,7 @@ y los dos botones que guian el flujo del programa -->
             $password = "*";
             $dbname = "*";
                 
+            // Se establece la conexion
             $conn = new mysqli($servername, $username, $password, $dbname);
             
             if ($conn->connect_error) {
@@ -63,10 +66,12 @@ y los dos botones que guian el flujo del programa -->
                     . $conn->connect_error);
             }
 
+            // Se realiza las subconsultas con su ID para no tener duplicidades.
             $sub = "SELECT MAX(idUniversidad) AS ID FROM Universidad";
             $res = $conn->query($sub);
             $max = $res->fetch_assoc();
             $id = ((int)$max["ID"]) + 1;
+            // se inserta
             $sql = "INSERT INTO Universidad (idUniversidad,idPais,Nombre,PaginaWeb,Telefono,DireccionCalle,DireccionCiudad,DireccionRegion,DireccionCodigoPostal) 
             VALUES ('$id','$uniPais','$uniName','$uniWeb','$uniPhone','$uniSt','$uniCity','$uniReg','$uniCP')";
 
@@ -88,7 +93,8 @@ y los dos botones que guian el flujo del programa -->
 
 <div style= "text-align: center;"> 
     <h3 style="text-align: center;"> Modifica data! </h3>
-
+    
+<!-- Aqui se crea el FORM para recoger informacion a modificar -->
     <form method="post" style="margin: auto; width: 220px;">
     Nombre de la Universidad: <br><input type="text" name="colName"><br>
     Pagina Web de la Universidad: <input type="text" name="colWP"><br>
@@ -98,6 +104,7 @@ y los dos botones que guian el flujo del programa -->
     </form>
 
     <div>
+        <!-- Aqui PHP se encarga de entrar al servidor con los credenciales y accede los campos dados -->
     <?php
         if (isset($_POST["Insert2"])) {
             $uniName = $_POST["colName"];
@@ -111,6 +118,7 @@ y los dos botones que guian el flujo del programa -->
             $password = "*";
             $dbname = "*";
                
+            // Se establece la conexion
             $conn = new mysqli($servername, $username, $password, $dbname);
           
             if ($conn->connect_error) {
@@ -118,6 +126,7 @@ y los dos botones que guian el flujo del programa -->
                     . $conn->connect_error);
             }
 
+            // se modifica
             $sql = "UPDATE Universidad
             SET Nombre = '$uniNewName', PaginaWeb = '$uniNewWP'
             WHERE Nombre = '$uniName' AND PaginaWeb = '$uniWP'";
@@ -139,11 +148,13 @@ y los dos botones que guian el flujo del programa -->
 
     <h3 style="text-align: center;"> Observe la data! </h3>
 
+    <!-- Aqui se crea el FORM para despliegar -->
     <form method="post">
     <input type="submit" name="Show" value ="Demuestra Universidades">
     </form>
 
     <div>
+        <!-- Aqui PHP se encarga de entrar al servidor con los credenciales y accede los campos dados -->
         <?php
             if (isset($_POST["Show"])) {
 
@@ -152,6 +163,7 @@ y los dos botones que guian el flujo del programa -->
                 $password = "*";
                 $dbname = "*";
             
+                // se establece conexion
                 $conn = new mysqli($servername, $username, $password, $dbname);
               
                 if ($conn->connect_error) {
@@ -161,9 +173,9 @@ y los dos botones que guian el flujo del programa -->
                 $sql = "SELECT * FROM Universidad";
                 $result = $conn->query($sql);
                 
+                // se despliega
                 if ($result->num_rows > 0) {
                     echo "<h4> Las universidades son: </h4>";
-                    // output data of each row
                     while($row = $result->fetch_assoc()) {
                         echo "<br> Nombre: ". $row["Nombre"]. " | Pagina: ". $row["PaginaWeb"].  "<br>";
                     }
