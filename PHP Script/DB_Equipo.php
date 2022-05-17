@@ -25,6 +25,7 @@ y los dos botones que guian el flujo del programa -->
 <div style= "text-align: center;"> 
 
     <h3 style="text-align: center;"> Inserta data! </h3>
+    <!-- Aqui se crea el FORM para recoger informacion a insertar -->
 
     <form method="post" style="margin: auto; width: 220px;">
     ID Equipo: <br><input type="text" name="teamName"><br>
@@ -37,6 +38,7 @@ y los dos botones que guian el flujo del programa -->
     </form>
 
     <div>
+        <!-- Aqui PHP se encarga de entrar al servidor con los credenciales y accede los campos dados -->
     <?php
         if (isset($_POST["Insert1"])) {
             $teamName = $_POST["teamName"];
@@ -51,7 +53,7 @@ y los dos botones que guian el flujo del programa -->
             $username = "*";
             $password = "*";
             $dbname = "*";
-                
+                // Se establece la conexion
             $conn = new mysqli($servername, $username, $password, $dbname);
            
             if ($conn->connect_error) {
@@ -59,10 +61,12 @@ y los dos botones que guian el flujo del programa -->
                     . $conn->connect_error);
             }
 
+            // Se realiza las subconsultas con su ID para no tener duplicidades.
             $sub = "SELECT MAX(ID) AS ID FROM Equipo";
             $res = $conn->query($sub);
             $max = $res->fetch_assoc();
             $id = ((int)$max["ID"]) + 1;
+            // se inserta.
             $sql = "INSERT INTO Equipo (ID,idEquipo,Año,idEstudiante1,idEstudiante2,idEstudiante3,idCoordinador) VALUES ('$id','$teamName','$teamYear','$teamID1','$teamID2','$teamID3','$teamIDC')";
 
             if ($conn->query($sql) === TRUE) {
@@ -82,6 +86,7 @@ y los dos botones que guian el flujo del programa -->
 <div style= "text-align: center;"> 
     <h3 style="text-align: center;"> Modifica data! </h3>
 
+    <!-- Aqui se crea el FORM para recoger informacion a modificar -->
     <form method="post" style="margin: auto; width: 220px;">
     Nombre del Equipo: <br><input type="text" name="name"><br>
     Año de participación del Equipo: <br><input type="text" name="year"><br>
@@ -90,6 +95,7 @@ y los dos botones que guian el flujo del programa -->
     </form>
 
     <div>
+        <!-- Aqui PHP se encarga de entrar al servidor con los credenciales y accede los campos dados -->
     <?php
         if (isset($_POST["Insert2"])) {
             $par = $_POST["name"];
@@ -99,7 +105,7 @@ y los dos botones que guian el flujo del programa -->
             $username = "*";
             $password = "*";
             $dbname = "*";
-               
+               // Se establece la conexion
             $conn = new mysqli($servername, $username, $password, $dbname);
             
             if ($conn->connect_error) {
@@ -107,6 +113,7 @@ y los dos botones que guian el flujo del programa -->
                     . $conn->connect_error);
             }
 
+            // se modifica
             $sql = "UPDATE Equipo
              SET Año = '$yearNew'
             WHERE idEquipo = '$par' AND Año = '$year'";
@@ -127,11 +134,13 @@ y los dos botones que guian el flujo del programa -->
 
     <h3 style="text-align: center;"> Observe la data! </h3>
 
+    <!-- Aqui se crea el FORM para despliegar informacion -->
     <form method="post">
     <input type="submit" name="Show" value ="Demuestra Equipos">
     </form>
 
     <div>
+        <!-- Aqui PHP se encarga de entrar al servidor con los credenciales y accede los campos dados -->
         <?php
             if (isset($_POST["Show"])) {
 
@@ -140,7 +149,7 @@ y los dos botones que guian el flujo del programa -->
                 $password = "*";
                 $dbname = "*";
             
-                
+                // Se establece la conexion
                 $conn = new mysqli($servername, $username, $password, $dbname);
               
                 if ($conn->connect_error) {
@@ -149,7 +158,7 @@ y los dos botones que guian el flujo del programa -->
                 
                 $sql = "SELECT * FROM Equipo";
                 $result = $conn->query($sql);
-                
+                // se despliega
                 if ($result->num_rows > 0) {
                     echo "<h4> Los equipos son: </h4>";
                     
