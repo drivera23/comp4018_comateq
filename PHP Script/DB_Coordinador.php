@@ -26,6 +26,7 @@ y los dos botones que guian el flujo del programa -->
 
     <h3 style="text-align: center;"> Inserta data! </h3>
 
+    <!-- Aqui se crea el FORM para recoger informacion a insertar -->
     <form method="post" style="margin: auto; width: 220px;">
     ID Universidad: <br><input type="text" name="uni"><br>
     Nombre: <br><input type="text" name="nameP"><br>
@@ -38,6 +39,7 @@ y los dos botones que guian el flujo del programa -->
     </form>
 
     <div>
+        <!-- Aqui PHP se encarga de entrar al servidor con los credenciales y accede los campos dados -->
     <?php
         if (isset($_POST["Insert1"])) {
             $adminName = $_POST["nameP"];
@@ -49,6 +51,7 @@ y los dos botones que guian el flujo del programa -->
             $adminGen = $_POST["Gender"];
 
             // -------------------- //
+            // Se establece la conexion
             $servername = "*";
             $username = "*";
             $password = "*";
@@ -61,10 +64,12 @@ y los dos botones que guian el flujo del programa -->
                     . $conn->connect_error);
             }
 
+            // Se realiza las subconsultas con su ID para no tener duplicidades.
             $sub = "SELECT MAX(idCoordinador) AS ID FROM Coordinador";
             $res = $conn->query($sub);
             $max = $res->fetch_assoc();
             $id = ((int)$max["ID"]) + 1;
+            // se inserta
             $sql = "INSERT INTO Coordinador (idCoordinador,idUniversidad,NombreP,ApellidoP,ApellidoM,Telefono,Email,Género) VALUES ('$id','$adminIDUNI','$adminName','$adminAP','$adminAM','$adminTel','$adminEmail','$adminGen')";
 
             if ($conn->query($sql) === TRUE) {
@@ -84,6 +89,7 @@ y los dos botones que guian el flujo del programa -->
 <div style= "text-align: center;"> 
     <h3 style="text-align: center;"> Modifica data! </h3>
 
+    <!-- Aqui se crea el FORM para recoger informacion a modificar -->
     <form method="post" style="margin: auto; width: 220px;">
     Nombre: <br><input type="text" name="nameP"><br>
     Nombre Nuevo: <br><input type="text" name="namePnew"><br>
@@ -95,6 +101,7 @@ y los dos botones que guian el flujo del programa -->
     </form>
 
     <div>
+        <!-- Aqui PHP se encarga de entrar al servidor con los credenciales y accede los campos dados -->
     <?php
         if (isset($_POST["Insert2"])) {
             $adminName = $_POST["nameP"];
@@ -105,6 +112,7 @@ y los dos botones que guian el flujo del programa -->
             $adminTelNew = $_POST["PosNew"];
 
             // --------------------//
+            // Se establece la conexion
             $servername = "*";
             $username = "*";
             $password = "*";
@@ -117,6 +125,7 @@ y los dos botones que guian el flujo del programa -->
                     . $conn->connect_error);
             }
 
+            // Se modifica dado las entradas.
             $sql = "UPDATE Coordinador
             SET NombreP = '$adminNewName', Email = '$adminEmailNew', Telefono = '$adminTelNew' 
             WHERE NombreP = '$adminName' AND Email = '$adminEmail' AND Telefono = '$adminTel' ";
@@ -137,11 +146,13 @@ y los dos botones que guian el flujo del programa -->
 
     <h3 style="text-align: center;"> Observe la data! </h3>
 
+    <!-- Aqui se crea el FORM para desplieugar informacion -->
     <form method="post">
     <input type="submit" name="Show" value ="Demuestra Coordinadores">
     </form>
 
     <div>
+        <!-- Aqui PHP se encarga de entrar al servidor con los credenciales y accede los campos dados -->
         <?php
             if (isset($_POST["Show"])) {
 
@@ -149,6 +160,7 @@ y los dos botones que guian el flujo del programa -->
                 $username = "*";
                 $password = "*";
                 $dbname = "*";
+                // Se establece la conexion
 
                 $conn = new mysqli($servername, $username, $password, $dbname);
                 
@@ -159,6 +171,7 @@ y los dos botones que guian el flujo del programa -->
                 $sql = "SELECT * FROM Coordinador";
                 $result = $conn->query($sql);
                 
+                // se desplieuga
                 if ($result->num_rows > 0) {
                     echo "<h4> Los Coordinadores son: </h4>";
                     
